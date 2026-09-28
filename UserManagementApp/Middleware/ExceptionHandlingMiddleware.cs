@@ -29,8 +29,7 @@ namespace UserManagementApp.Middleware
 
                 var response = new
                 {
-                    status = context.Response.StatusCode,
-                    message = "An unexpected error occurred. Please try again later."
+                    error = "Internal server error."
                 };
 
                 await context.Response.WriteAsync(JsonSerializer.Serialize(response));

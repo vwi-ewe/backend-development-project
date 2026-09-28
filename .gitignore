@@ -40,6 +40,11 @@ Thumbs.db
 TestResults/
 *.trx
 
+# App settings (may contain secrets)
+appsettings.json
+appsettings.*.json
+!appsettings.Example.json
+
 # Publish output
 publish/
 *.publish.xml
