@@ -8,17 +8,17 @@ This project was built as part of a back-end development course, using Microsoft
 
 ```
 UserManagementApp/
-??? Controllers/
-?   ??? UsersController.cs        # CRUD endpoints for users
-??? Models/
-?   ??? User.cs                   # User model with validation attributes
-??? Middleware/
-?   ??? ExceptionHandlingMiddleware.cs        # Global error handling
-?   ??? TokenAuthenticationMiddleware.cs      # Bearer token authentication
-?   ??? RequestResponseLoggingMiddleware.cs   # Request/response logging
-??? appsettings.json               # Local configuration (gitignored - contains secrets)
-??? appsettings.Example.json       # Template showing required configuration keys
-??? Program.cs                     # App startup and middleware pipeline configuration
+Controllers/
+    UsersController.cs        # CRUD endpoints for users
+Models/
+    User.cs                   # User model with validation attributes
+Middleware/
+    ExceptionHandlingMiddleware.cs        # Global error handling
+    TokenAuthenticationMiddleware.cs      # Bearer token authentication
+    RequestResponseLoggingMiddleware.cs   # Request/response logging
+appsettings.json               # Local configuration (gitignored - contains secrets)
+appsettings.Example.json       # Template showing required configuration keys
+Program.cs                     # App startup and middleware pipeline configuration
 ```
 
 ## Getting started
@@ -34,7 +34,7 @@ UserManagementApp/
 ### Authenticating in Swagger
 
 1. Click **Authorize**.
-2. Paste your raw token from `appsettings.json` (Swagger automatically adds the `Bearer` prefix — do not type it yourself).
+2. Paste your raw token from `appsettings.json` (Swagger automatically adds the `Bearer` prefix â€” do not type it yourself).
 3. Click **Authorize**, then **Close**.
 4. All endpoint calls will now include the token.
 
@@ -62,9 +62,9 @@ All endpoints (except Swagger routes) require a valid Bearer token in the `Autho
 
 Configured in `Program.cs`, in this order:
 
-1. **`ExceptionHandlingMiddleware`** — catches unhandled exceptions and returns a consistent JSON error (`{ "error": "Internal server error." }`) with a `500` status, instead of leaking stack traces.
-2. **`TokenAuthenticationMiddleware`** — validates the `Authorization: Bearer <token>` header against the configured API token. Returns `401 Unauthorized` for missing/invalid tokens. Swagger routes (`/swagger`) are excluded so the docs remain browsable.
-3. **`RequestResponseLoggingMiddleware`** — logs the HTTP method, path, response status code, and elapsed time for every authorized request.
+1. **`ExceptionHandlingMiddleware`** â€” catches unhandled exceptions and returns a consistent JSON error (`{ "error": "Internal server error." }`) with a `500` status, instead of leaking stack traces.
+2. **`TokenAuthenticationMiddleware`** â€” validates the `Authorization: Bearer <token>` header against the configured API token. Returns `401 Unauthorized` for missing/invalid tokens. Swagger routes (`/swagger`) are excluded so the docs remain browsable.
+3. **`RequestResponseLoggingMiddleware`** â€” logs the HTTP method, path, response status code, and elapsed time for every authorized request.
 
 This order ensures exceptions from auth/logging are still caught, unauthorized requests are rejected before reaching business logic, and only authorized traffic is logged in detail.
 
@@ -72,13 +72,13 @@ This order ensures exceptions from auth/logging are still caught, unauthorized r
 
 This project was built iteratively across three activities, with Microsoft Copilot assisting throughout:
 
-1. **Scaffolding & CRUD generation** — Copilot helped scaffold the initial `UsersController` with GET/POST/PUT/DELETE endpoints and an in-memory data store.
-2. **Debugging** — Copilot helped identify and fix real bugs:
+1. **Scaffolding & CRUD generation** â€” Copilot helped scaffold the initial `UsersController` with GET/POST/PUT/DELETE endpoints and an in-memory data store.
+2. **Debugging** â€” Copilot helped identify and fix real bugs:
    - Missing validation on user input (empty names, invalid emails).
    - No handling for non-existent user lookups.
    - No safeguards against unhandled exceptions crashing the API.
    Fixes included adding data annotations, `ModelState` validation checks, duplicate-email detection, and try/catch blocks with logging.
-3. **Middleware implementation** — Copilot assisted in generating the logging, error-handling, and token-authentication middleware, and in configuring the pipeline order for correctness and security.
+3. **Middleware implementation** â€” Copilot assisted in generating the logging, error-handling, and token-authentication middleware, and in configuring the pipeline order for correctness and security.
 
 ## Testing
 
